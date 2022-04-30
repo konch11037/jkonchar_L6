@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">jkonchar_L6</string>
+    <string name="latandlong">Latitude , Longitude</string>
+    <string name="address">Address</string>
+    <string name="location_reason_message">We must access your location to plot where you are</string>
+
+    <string name="turn_notifications_on_label">Turn Notifications On</string>
+    <string name="turn_notifications_off_label">Turn Notifications Off</string>
+    <string name="notification_channel_desc">Sends notifications with current location</string>
+    <string name="notification_title">Got A New Location</string>
+    <string name="notification_content_text">You are at %0s / %2s</string>
+
+</resources>
