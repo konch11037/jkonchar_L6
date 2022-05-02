@@ -4,9 +4,11 @@ import android.location.Location
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -62,18 +64,13 @@ fun LocationScreen(locationState: State<Location?>,
        Text(text = stringResource(id = R.string.latandlong))
        val lat = locationState.value?.latitude ?: "5"
        Text(text = "${locationState.value?.latitude ?: ""},${locationState.value?.longitude ?: ""}")
-       Text(text = stringResource(id = R.string.address))
-       Text(text = addressState.value!!)
-       Button(onClick = onGetLocation) {
-           Text(text = "Get Current Location")
-       }
 
        val locationPosition = locationState.value?.let {
            LatLng(it.latitude, it.longitude)
        } ?: LatLng(0.0,0.0)
 
        GoogleMap(
-           modifier = Modifier.fillMaxSize(),
+           modifier = Modifier.weight(1f),
            cameraPositionState = cameraPositionState
        ) {
            if (locationState.value != null) {
@@ -84,5 +81,6 @@ fun LocationScreen(locationState: State<Location?>,
                )
            }
        }
+
    }
 }

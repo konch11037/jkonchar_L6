@@ -6,9 +6,9 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
 import com.csci448.konchar.jkonchar_l6.LocationUtility
 import com.csci448.konchar.jkonchar_l6.R.dimen
@@ -74,18 +75,33 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    LocationScreen(
-                        locationState = locationState,
-                        addressState = addressState,
-                        onGetLocation = {
-                            locationUtility.checkPermissionAndGetLocation(this)
-                        },
-                        cameraPositionState = cameraPositionState
-                    )
+                    val scaffoldState = rememberScaffoldState()
+                        Scaffold(floatingActionButton = {
+                            FloatingActionButton(onClick = {
+                            locationUtility.checkPermissionAndGetLocation( this ) },
+
+                            elevation = FloatingActionButtonDefaults.elevation(8.dp)) {
+                            Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "") } },
+
+                            floatingActionButtonPosition = FabPosition.Center,
+
+                            content = {
+                                LocationScreen(
+                                    locationState = locationState,
+                                    addressState = addressState,
+                                    onGetLocation = {
+                                        locationUtility.checkPermissionAndGetLocation(this)
+                                    },
+                                    cameraPositionState = cameraPositionState
+                                )
+                            }
+                        )
+
+                    }
                 }
             }
         }
-    }
+
 
     override fun onStop() {
         Log.d(LOG_TAG, "onStop() called")
