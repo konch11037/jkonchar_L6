@@ -16,8 +16,8 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    val database= positionAndTimeDatabase.getInstance(context = context)
-                    instance = PositionAndTimeRepository(database.positionAndTimeDao)
+                    val database= PositionAndTimeDatabase.getInstance(context = context)
+                    instance = PositionAndTimeRepository(database.positionAndTimeDAO)
                     INSTANCE = instance
                 }
                 return instance
