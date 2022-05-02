@@ -1,6 +1,5 @@
 package com.csci448.konchar.jkonchar_l6
 
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -12,15 +11,12 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
-import com.csci448.konchar.jkonchar_l6.LocationUtility
-import com.csci448.konchar.jkonchar_l6.R.dimen
+import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng

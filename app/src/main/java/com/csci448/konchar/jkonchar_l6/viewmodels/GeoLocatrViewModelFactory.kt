@@ -1,4 +1,4 @@
-package com.csci448.konchar.jkonchar_l6
+package com.csci448.konchar.jkonchar_l6.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

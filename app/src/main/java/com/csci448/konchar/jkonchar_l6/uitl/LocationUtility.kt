@@ -1,4 +1,4 @@
-package com.csci448.konchar.jkonchar_l6
+package com.csci448.konchar.jkonchar_l6.uitl
 
 import kotlin.text.StringBuilder
 import android.content.pm.PackageManager
@@ -20,6 +20,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import com.csci448.konchar.jkonchar_l6.R
+import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModelFactory
 import java.io.IOException
 
 class LocationUtility(activity: ComponentActivity) {
