@@ -2,16 +2,11 @@ package com.csci448.konchar.jkonchar_l6
 
 import android.location.Location
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,12 +14,14 @@ import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.CameraPositionState
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.compose.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoField
 
 
 @Preview(showBackground = true)
@@ -69,18 +66,46 @@ fun LocationScreen(locationState: State<Location?>,
            LatLng(it.latitude, it.longitude)
        } ?: LatLng(0.0,0.0)
 
+       var trackShit = remember { mutableStateOf(false)}
        GoogleMap(
            modifier = Modifier.weight(1f),
-           cameraPositionState = cameraPositionState
+           cameraPositionState = cameraPositionState,
+           uiSettings = MapUiSettings(zoomControlsEnabled = false)
        ) {
            if (locationState.value != null) {
                Marker(
                    position = locationPosition,
-                   title = addressState.value,
-                   snippet ="${locationState.value?.latitude ?: ""}, ${locationState.value?.longitude ?: ""}"
+                   title ="${locationState.value?.latitude ?: ""}, ${locationState.value?.longitude ?: ""}",
+                   onClick = {
+                       trackShit.value = true
+                       false
+                   }
                )
            }
        }
 
+       if (trackShit.value) {
+            SnackbarDemo(trackShit = trackShit)
+
+       }
    }
+}
+
+@Composable
+fun SnackbarDemo(trackShit: MutableState<Boolean>) {
+    Column {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("E. LLL d, yyyy hh:mm a")
+        val formatted = current.format(formatter)
+        val stringy = "You were here: " + formatted
+            Snackbar(
+                action = {
+                    Button(onClick = {trackShit.value = false}) {
+                        Text("DELETE")
+                    }
+                },
+                //modifier = Modifier.padding(8.dp)
+
+            ) { Text(fontSize = 12.sp, text = stringy.toString()) }
+    }
 }

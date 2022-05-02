@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                             elevation = FloatingActionButtonDefaults.elevation(8.dp)) {
                             Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "") } },
 
-                            floatingActionButtonPosition = FabPosition.Center,
+                            floatingActionButtonPosition = FabPosition.End,
 
                             content = {
                                 LocationScreen(
