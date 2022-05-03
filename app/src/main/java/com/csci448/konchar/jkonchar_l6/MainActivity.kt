@@ -81,6 +81,13 @@ class MainActivity : ComponentActivity() {
 
                             floatingActionButtonPosition = FabPosition.End,
 
+                            topBar = {
+                                TopAppBar() {
+                                    
+                                }
+
+                            },
+
                             content = {
                                 LocationScreen(
                                     locationState = locationState,
