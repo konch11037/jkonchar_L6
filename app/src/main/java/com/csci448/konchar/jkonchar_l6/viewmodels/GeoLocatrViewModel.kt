@@ -6,7 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.data.database.PositionAndTimeRepository
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.*
 
 class GeoLocatrViewModel(
@@ -19,57 +23,24 @@ class GeoLocatrViewModel(
                                     MutableLiveData<String?>("")
 
 
-    private val workManager = WorkManager.getInstance(context)
-    private val workRequest = CharacterWorker.buildOneTimeWorkRequest()
-    override val outputWorkerInfo: LiveData<WorkInfo> =
-        workManager.getWorkInfoByIdLiveData(workRequest.id)
+
+    private val _positionaAndTimeIdLiveData=MutableLiveData<UUID>()
 
 
-    override fun requestWebCharacter() {
-        workManager.enqueueUniqueWork(CharacterWorker.UNIQUE_WORK_NAME,
-            ExistingWorkPolicy.REPLACE,
-            workRequest)
-    }
+    val positionAndTimeListLiveData  = positionAndTimeRepository.getPositionAndTimes()
 
-    override fun deleteAll() {
-        samodelkinRepository.deleteCharacters()
-    }
-
-    private val _characterIdLiveData=MutableLiveData<UUID>()
-    override val characterListLiveData  = samodelkinRepository.getCharacters()
-
-    override val characterLiveData =
-        Transformations.switchMap(_characterIdLiveData) { characterId ->
-            samodelkinRepository.getCharacter(characterId)
+    val positionAndTimeLiveData =
+        Transformations.switchMap(_positionaAndTimeIdLiveData) { id ->
+            positionAndTimeRepository.getPositionAndTime(id)
         }
 
-    override fun addCharacter(character: SamodelkinCharacter) {
-        samodelkinRepository.addCharacter(character = character)
+    fun deleteAll() = positionAndTimeRepository.deletePositionAndTimes()
+
+    fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)
+
+     fun addPositionNndTime(positionAndTime: PositionAndTime) {
+       positionAndTimeRepository.addPositionAndTime(positionAndTime)
     }
 
-
-
-
-    override fun loadCharacter(id: UUID) {
-        _characterIdLiveData.value = id
-    }
-
-    override fun deleteCharacter(id: UUID) {
-        samodelkinRepository.deleteCharacter(id = id)
-    }
-
-
-    override fun generateRandomCharacter(): SamodelkinCharacter {
-        return CharacterGenerator.generateRandomCharacter()
-    }
-
-    //  init {
-//            characterListLiveData.value?.let { characterlist ->
-//                for (i in 1..20) {
-//                    characterlist.add(charactergenerator.generaterandomcharacter())
-//                }
-//                characterListLiveData.value = characterlist
-//            }
-    // }
 
 }

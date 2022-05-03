@@ -61,7 +61,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.google.maps.android:maps-compose:1.0.0'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
@@ -70,4 +69,5 @@ dependencies {
     // Lab 8 dependencies
     implementation "androidx.navigation:navigation-compose:2.5.0-alpha04"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
 }
