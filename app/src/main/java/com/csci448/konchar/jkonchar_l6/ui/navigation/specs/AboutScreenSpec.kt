@@ -5,7 +5,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.ui.screens.AboutScreen
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 
 object AboutScreenSpec: I_ScreenSpec {
     override val route: String
@@ -15,9 +15,9 @@ object AboutScreenSpec: I_ScreenSpec {
 
 @Composable
     override fun Content(
-        viewModel: GeoLocatrViewModel,
-        navController: NavHostController,
-        backStackEntry: NavBackStackEntry
+    viewModel: I_GeoLocatrViewModel,
+    navController: NavHostController,
+    backStackEntry: NavBackStackEntry
     ) {
        AboutScreen()
     }

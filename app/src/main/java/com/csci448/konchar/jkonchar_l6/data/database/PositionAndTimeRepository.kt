@@ -3,6 +3,7 @@ package com.csci448.konchar.jkonchar_l6.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.makeApiWeatherRequest
 import java.util.*
 import java.util.concurrent.Executors
 
@@ -27,7 +28,9 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
 
     private val executor = Executors.newSingleThreadExecutor()
 
+
     fun addPositionAndTime(paT: PositionAndTime) {
+        makeApiWeatherRequest(paT)
         executor.execute {
             positionAndTimeDao.addPositionAndTime(paT = paT)
         }

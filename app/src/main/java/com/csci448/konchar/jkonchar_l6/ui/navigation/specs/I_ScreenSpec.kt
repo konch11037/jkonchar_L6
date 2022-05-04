@@ -13,6 +13,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.R
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 
 
 sealed interface I_ScreenSpec {
@@ -32,7 +33,7 @@ sealed interface I_ScreenSpec {
     val route: String
     val arguments: List<NamedNavArgument>
 
-    @Composable fun Content(viewModel: GeoLocatrViewModel, navController: NavHostController, backStackEntry: NavBackStackEntry)
+    @Composable fun Content(viewModel: I_GeoLocatrViewModel, navController: NavHostController, backStackEntry: NavBackStackEntry)
     @Composable fun TopAppBarActions(navController: NavHostController)
 
     @Composable

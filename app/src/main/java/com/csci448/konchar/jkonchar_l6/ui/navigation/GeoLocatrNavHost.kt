@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.I_ScreenSpec
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 
 @Composable
-fun GeoLocatrNavHost(navController: NavController, viewModel: GeoLocatrViewModel){
+fun GeoLocatrNavHost(navController: NavController, viewModel: I_GeoLocatrViewModel){
     NavHost(
         navController = navController as NavHostController,
         startDestination = I_ScreenSpec.startDestination) {

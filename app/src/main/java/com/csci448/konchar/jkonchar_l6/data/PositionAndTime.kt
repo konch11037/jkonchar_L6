@@ -12,8 +12,8 @@ import java.util.*
 class PositionAndTime (
     var longitude      : Float,
     var latitude       : Float,
-    val temperature     : String,
-    val weather         : String,
+    var temperature     : String,
+    var weather         : String,
     val date           : Date
 ): Serializable
 {

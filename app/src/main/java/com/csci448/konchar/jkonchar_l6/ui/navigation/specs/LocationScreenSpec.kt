@@ -9,7 +9,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.LocationScreen
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -25,7 +25,7 @@ object LocationScreenSpec: I_ScreenSpec {
     @SuppressLint("UnrememberedMutableState")
     @Composable
     override fun Content(
-        viewModel: GeoLocatrViewModel,
+        viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
         backStackEntry: NavBackStackEntry
     ) {

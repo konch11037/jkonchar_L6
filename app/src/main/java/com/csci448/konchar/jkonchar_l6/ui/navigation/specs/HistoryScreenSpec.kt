@@ -8,7 +8,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.ui.screens.HistoryScreen
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 
 object HistoryScreenSpec: I_ScreenSpec{
     override val route: String
@@ -19,7 +19,7 @@ object HistoryScreenSpec: I_ScreenSpec{
     @SuppressLint("UnrememberedMutableState")
     @Composable
     override fun Content(
-        viewModel: GeoLocatrViewModel,
+        viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
         backStackEntry: NavBackStackEntry
     ) {

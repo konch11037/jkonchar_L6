@@ -11,13 +11,13 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import androidx.navigation.compose.rememberNavController
+import com.csci448.konchar.jkonchar_l6.ui.navigation.GeoLocatrNavHost
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.rememberCameraPositionState
-import java.util.*
 
 class MainActivity : ComponentActivity() {
     lateinit var locationUtility: LocationUtility
@@ -90,6 +89,7 @@ class MainActivity : ComponentActivity() {
 
 
                 val scaffoldState = rememberScaffoldState()
+                val navController = rememberNavController()
                 Scaffold(floatingActionButton = {
                     FloatingActionButton(
                         onClick = {
@@ -112,16 +112,17 @@ class MainActivity : ComponentActivity() {
                     },
 
                     content = {
-                        LocationScreen(
-                            locationState = locationState,
-                            addressState = addressState,
-                            onGetLocation = {
-                                locationUtility.checkPermissionAndGetLocation(this)
-                            },
-                            cameraPositionState = cameraPositionState,
-                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState(
-                                mutableStateListOf())
-                        )
+                        GeoLocatrNavHost(navController = navController, viewModel = viewModel )
+//                        LocationScreen(
+//                            locationState = locationState,
+//                            addressState = addressState,
+//                            onGetLocation = {
+//                                locationUtility.checkPermissionAndGetLocation(this)
+//                            },
+//                            cameraPositionState = cameraPositionState,
+//                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState(
+//                                mutableStateListOf())
+//                        )
                     }
                 )
 
