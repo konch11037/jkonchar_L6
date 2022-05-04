@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -118,7 +119,8 @@ class MainActivity : ComponentActivity() {
                                 locationUtility.checkPermissionAndGetLocation(this)
                             },
                             cameraPositionState = cameraPositionState,
-                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState()
+                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState(
+                                mutableStateListOf())
                         )
                     }
                 )
