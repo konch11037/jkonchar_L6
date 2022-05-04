@@ -6,8 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.data.database.PositionAndTimeRepository
+import com.csci448.konchar.jkonchar_l6.uitl.WeatherWorker
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -21,6 +24,10 @@ class GeoLocatrViewModel(
                                     MutableLiveData<Location?>(null)
     override val currentAddressLiveData: MutableLiveData<String?> =
                                     MutableLiveData<String?>("")
+    private val workManager = WorkManager.getInstance(context)
+    private val workRequest = WeatherWorker.buildOneTimeWorkRequest()
+    val outputWorkerInfo: LiveData<WorkInfo> =
+        workManager.getWorkInfoByIdLiveData(workRequest.id)
 
     private val _positionaAndTimeIdLiveData=MutableLiveData<UUID>()
 
@@ -36,7 +43,7 @@ class GeoLocatrViewModel(
 
     override fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)
 
-    override fun addPositionNndTime(positionAndTime: PositionAndTime) {
+    override fun addPositionAndTime(positionAndTime: PositionAndTime) {
        positionAndTimeRepository.addPositionAndTime(positionAndTime)
     }
 

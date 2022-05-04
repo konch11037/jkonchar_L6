@@ -16,5 +16,5 @@ abstract class I_GeoLocatrViewModel: ViewModel() {
     abstract val positionAndTimeLiveData: LiveData<PositionAndTime>
     abstract fun deleteAll()
     abstract fun deletePositionAndTime(id: UUID)
-    abstract fun addPositionNndTime(positionAndTime: PositionAndTime)
+    abstract fun addPositionAndTime(positionAndTime: PositionAndTime)
 }
