@@ -1,5 +1,6 @@
 package com.csci448.konchar.jkonchar_l6.data
 
+import android.service.controls.templates.TemperatureControlTemplate
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
@@ -9,8 +10,11 @@ import java.util.*
 
 @Entity
 class PositionAndTime (
-    val latLng      : LatLng,
-    val dateTime    : LocalDateTime
+    val longitude      : Float,
+    val latitude       : Float,
+    val temperature     : String,
+    val weather         : String,
+    val date           : Date
 ): Serializable
 {
     @PrimaryKey
