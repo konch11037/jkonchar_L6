@@ -6,7 +6,6 @@ import android.os.Looper
 import com.google.android.gms.location.LocationRequest
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -21,14 +20,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import com.csci448.konchar.jkonchar_l6.R
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
-import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModelFactory
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import java.io.IOException
 
-class LocationUtility(activity: ComponentActivity) {
+class LocationUtility(activity: ComponentActivity, viewModel: I_GeoLocatrViewModel) {
     // Values
     private val LOG_TAG = "L_6_LocationUtility"
-    public val viewModel: GeoLocatrViewModel
+
     private val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(activity)
 
@@ -50,10 +48,10 @@ class LocationUtility(activity: ComponentActivity) {
 
 
     // Methods
-    init {
-        val factory = GeoLocatrViewModelFactory()
-        viewModel = ViewModelProvider(activity, factory)[factory.getViewModelClass()]
-    }
+//    init {
+//        val factory = GeoLocatrViewModelFactory()
+//        viewModel = ViewModelProvider(activity, factory)[factory.getViewModelClass()]
+//    }
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -126,7 +124,7 @@ class LocationUtility(activity: ComponentActivity) {
         return addressTextBuilder.toString()
     }
 
-    public fun getAddressForCurrentLocation(context: Context) {
+    public fun getAddressForCurrentLocation(context: Context, viewModel: I_GeoLocatrViewModel) {
         viewModel.currentAddressLiveData.value =
             getAddress(context, viewModel.currentLocationLiveData.value)
     }

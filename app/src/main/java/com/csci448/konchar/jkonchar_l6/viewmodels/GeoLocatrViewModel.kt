@@ -15,30 +15,28 @@ import java.util.*
 
 class GeoLocatrViewModel(
     private val positionAndTimeRepository: PositionAndTimeRepository,
-    context: Context ):
-    ViewModel() {
-    val currentLocationLiveData: MutableLiveData<Location?> =
+    context: Context
+   ): I_GeoLocatrViewModel(){
+    override val currentLocationLiveData: MutableLiveData<Location?> =
                                     MutableLiveData<Location?>(null)
-    val currentAddressLiveData: MutableLiveData<String?> =
+    override val currentAddressLiveData: MutableLiveData<String?> =
                                     MutableLiveData<String?>("")
-
-
 
     private val _positionaAndTimeIdLiveData=MutableLiveData<UUID>()
 
 
-    val positionAndTimeListLiveData  = positionAndTimeRepository.getPositionAndTimes()
+    override val positionAndTimeListLiveData  = positionAndTimeRepository.getPositionAndTimes()
 
-    val positionAndTimeLiveData =
+    override val positionAndTimeLiveData =
         Transformations.switchMap(_positionaAndTimeIdLiveData) { id ->
             positionAndTimeRepository.getPositionAndTime(id)
         }
 
-    fun deleteAll() = positionAndTimeRepository.deletePositionAndTimes()
+    override fun deleteAll() = positionAndTimeRepository.deletePositionAndTimes()
 
-    fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)
+    override fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)
 
-     fun addPositionNndTime(positionAndTime: PositionAndTime) {
+    override fun addPositionNndTime(positionAndTime: PositionAndTime) {
        positionAndTimeRepository.addPositionAndTime(positionAndTime)
     }
 

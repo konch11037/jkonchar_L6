@@ -1,6 +1,7 @@
 buildscript {
     ext {
         compose_version = '1.0.1'
+        ext.room_version = "2.4.2"
     }
     dependencies {
         classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1"

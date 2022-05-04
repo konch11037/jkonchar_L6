@@ -17,7 +17,7 @@ import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 
 sealed interface I_ScreenSpec {
     companion object {
-        val startDestination: String = TODO("DO THIS")
+        val startDestination: String = LocationScreenSpec.route
         val allScreens = I_ScreenSpec::class.sealedSubclasses.associate { it.objectInstance?.route to it.objectInstance }
 
         @Composable
