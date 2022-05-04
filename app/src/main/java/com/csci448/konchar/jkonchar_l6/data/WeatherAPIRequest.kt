@@ -14,7 +14,7 @@ fun makeApiWeatherRequest(pat: PositionAndTime) {
     val lat = pat.latitude
     val long = pat.longitude
     val request: Request = Request.Builder()
-        .url("https://api.openweathermap.org/data/2.5/weather?lat=${lat.toInt()}&lon=${long.toInt()}&appid={31b74afce7fdf5c3a4d0654e06eb0301}&units=imperial")
+        .url("https://api.openweathermap.org/data/2.5/weather?lat=${lat.toInt()}&lon=${long.toInt()}&appid=31b74afce7fdf5c3a4d0654e06eb0301&units=imperial")
         .get()
         .build()
     //same as above, this function executes on IO dispatcher. Won't block UI thread
@@ -35,8 +35,17 @@ fun parseWeatherJSON(
     Log.d(LOG_TAG, "parseRecipeJSON() function called")
     Log.d(LOG_TAG, "apiData contains $apiData")
     val properties = JSONObject(apiData)
-    pat.weather = checkNotNull(properties.getString("weather.description"))
-    pat.temperature = checkNotNull(properties.getString("main.temp"))
+
+    val jsonArr1 = checkNotNull(properties.getJSONArray("weather"))
+    val jsonObj = checkNotNull(properties.getJSONObject("main"))
+
+    for(i in 0 until jsonArr1.length()){
+        pat.weather = jsonArr1.getJSONObject(i).getString("description")
+
+    }
+
+        pat.temperature = jsonObj.getString("temp")
+
     Log.d(LOG_TAG, "Weather = ${pat.weather}")
     Log.d(LOG_TAG, "Temp = ${pat.temperature}")
 
