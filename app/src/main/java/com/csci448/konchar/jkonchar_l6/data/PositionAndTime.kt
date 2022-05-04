@@ -10,8 +10,8 @@ import java.util.*
 
 @Entity
 class PositionAndTime (
-    val longitude      : Float,
-    val latitude       : Float,
+    var longitude      : Float,
+    var latitude       : Float,
     val temperature     : String,
     val weather         : String,
     val date           : Date

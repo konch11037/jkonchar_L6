@@ -1,18 +1,17 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
-import android.location.Location
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.LocationScreen
+import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.rememberCameraPositionState
+import java.util.*
 
 object LocationScreenSpec: I_ScreenSpec {
     
@@ -30,12 +29,32 @@ object LocationScreenSpec: I_ScreenSpec {
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(LatLng(0.0,0.0), 0f)
         }
-        val locationStateList: State<List<MutableLiveData<Location>>>
+        val locationState = viewModel.currentLocationLiveData.observeAsState()
+
+        val locationPosition = locationState.value?.let {
+            LatLng(it.latitude, it.longitude)
+        } ?: LatLng(0.0,0.0)
+
+        val pat = PositionAndTime(
+            longitude = locationPosition.longitude.toFloat(),
+            latitude = locationPosition.latitude.toFloat(),
+            "",  //TODO: FIX
+            "",
+            Date() )
+
+        viewModel.addPositionAndTime(pat)
+
+        val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState()
+
+
+
+
        LocationScreen(
-           locationState = viewModel.currentLocationLiveData.observeAsState(),
+           locationState = locationState,
            addressState = viewModel.currentAddressLiveData.observeAsState(),
-           onGetLocation = { /*TODO*/ },
-           cameraPositionState = cameraPositionState
+           onGetLocation = { },
+           cameraPositionState = cameraPositionState,
+           positionAndTimesStateList = positionAndTimesStateList
        ) 
     }
 

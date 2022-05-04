@@ -17,4 +17,6 @@ abstract class I_GeoLocatrViewModel: ViewModel() {
     abstract fun deleteAll()
     abstract fun deletePositionAndTime(id: UUID)
     abstract fun addPositionAndTime(positionAndTime: PositionAndTime)
+    abstract fun getPositionAndTimes(): LiveData<List<PositionAndTime>>
+    abstract fun getPositionAndTime(id: UUID): LiveData<PositionAndTime>?
 }

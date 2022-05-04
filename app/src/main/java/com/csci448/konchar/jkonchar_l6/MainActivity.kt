@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
-import com.csci448.konchar.jkonchar_l6.uitl.WeatherWorker
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModelFactory
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
@@ -114,7 +113,8 @@ class MainActivity : ComponentActivity() {
                             onGetLocation = {
                                 locationUtility.checkPermissionAndGetLocation(this)
                             },
-                            cameraPositionState = cameraPositionState
+                            cameraPositionState = cameraPositionState,
+                            positionAndTimesStateList = positionAndTimesStateList
                         )
                     }
                 )

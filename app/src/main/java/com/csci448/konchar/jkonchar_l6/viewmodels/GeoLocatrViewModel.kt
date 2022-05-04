@@ -31,7 +31,6 @@ class GeoLocatrViewModel(
 
     private val _positionaAndTimeIdLiveData=MutableLiveData<UUID>()
 
-
     override val positionAndTimeListLiveData  = positionAndTimeRepository.getPositionAndTimes()
 
     override val positionAndTimeLiveData =
@@ -46,6 +45,10 @@ class GeoLocatrViewModel(
     override fun addPositionAndTime(positionAndTime: PositionAndTime) {
        positionAndTimeRepository.addPositionAndTime(positionAndTime)
     }
+    override fun getPositionAndTimes(): LiveData<List<PositionAndTime>> = positionAndTimeRepository.getPositionAndTimes()
+
+    override fun getPositionAndTime(id: UUID): LiveData<PositionAndTime>? = positionAndTimeRepository.getPositionAndTime(id)
+
 
 
 }
