@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.rememberCameraPositionState
+import java.util.*
 
 class MainActivity : ComponentActivity() {
     lateinit var locationUtility: LocationUtility
@@ -84,6 +86,8 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
+
+
                 val scaffoldState = rememberScaffoldState()
                 Scaffold(floatingActionButton = {
                     FloatingActionButton(
@@ -114,7 +118,7 @@ class MainActivity : ComponentActivity() {
                                 locationUtility.checkPermissionAndGetLocation(this)
                             },
                             cameraPositionState = cameraPositionState,
-                            positionAndTimesStateList = positionAndTimesStateList
+                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState()
                         )
                     }
                 )

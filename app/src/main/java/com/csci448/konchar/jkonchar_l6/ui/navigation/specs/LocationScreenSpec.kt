@@ -1,7 +1,9 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
@@ -20,6 +22,7 @@ object LocationScreenSpec: I_ScreenSpec {
     override val arguments: List<NamedNavArgument>
         get() = TODO("Not yet implemented")
 
+    @SuppressLint("UnrememberedMutableState")
     @Composable
     override fun Content(
         viewModel: GeoLocatrViewModel,
@@ -40,19 +43,19 @@ object LocationScreenSpec: I_ScreenSpec {
             latitude = locationPosition.latitude.toFloat(),
             "",  //TODO: FIX
             "",
-            Date() )
+            Date(Date().date + Date().time)
+            )
+
 
         viewModel.addPositionAndTime(pat)
 
-        val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState()
-
-
-
+        val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(
+            mutableStateListOf())
 
        LocationScreen(
            locationState = locationState,
            addressState = viewModel.currentAddressLiveData.observeAsState(),
-           onGetLocation = { },
+           onGetLocation = {},
            cameraPositionState = cameraPositionState,
            positionAndTimesStateList = positionAndTimesStateList
        ) 

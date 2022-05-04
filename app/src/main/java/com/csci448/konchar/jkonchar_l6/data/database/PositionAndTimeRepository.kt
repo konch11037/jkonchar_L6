@@ -33,8 +33,8 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
         }
     }
 
-    fun getPositionAndTimes() = positionAndTimeDao.getPositionAndTimes()
-    fun getPositionAndTime(id: UUID): LiveData<PositionAndTime>? = positionAndTimeDao.getPositionAndTime(id)
+    fun getPositionAndTimes(): LiveData<List<PositionAndTime>> = positionAndTimeDao.getPositionAndTimes()
+    fun getPositionAndTime(id: UUID): LiveData<PositionAndTime> = positionAndTimeDao.getPositionAndTime(id)
 
     fun deletePositionAndTime(id: UUID)=
         executor.execute {

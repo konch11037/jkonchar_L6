@@ -47,7 +47,7 @@ class GeoLocatrViewModel(
     }
     override fun getPositionAndTimes(): LiveData<List<PositionAndTime>> = positionAndTimeRepository.getPositionAndTimes()
 
-    override fun getPositionAndTime(id: UUID): LiveData<PositionAndTime>? = positionAndTimeRepository.getPositionAndTime(id)
+    override fun getPositionAndTime(id: UUID): LiveData<PositionAndTime> = positionAndTimeRepository.getPositionAndTime(id)
 
 
 

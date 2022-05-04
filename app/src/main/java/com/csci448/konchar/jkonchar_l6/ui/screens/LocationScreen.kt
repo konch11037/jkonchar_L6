@@ -49,7 +49,7 @@ fun LocationScreen(
     addressState: State<String?>,
     onGetLocation: () -> Unit,
     cameraPositionState: CameraPositionState,
-    positionAndTimesStateList: State<List<PositionAndTime>?>
+    positionAndTimesStateList: State<List<PositionAndTime>>
 ) {
    Column(
        horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,12 +60,8 @@ fun LocationScreen(
        Text(text = stringResource(id = R.string.latandlong))
        Text(text = "${locationState.value?.latitude ?: ""},${locationState.value?.longitude ?: ""}")
 
-       val locationPosition = locationState.value?.let {
-           LatLng(it.latitude, it.longitude)
-       } ?: LatLng(0.0,0.0)
-
-       var allLocationsList : MutableList<LatLng> = mutableListOf()
-        positionAndTimesStateList.value?.let{
+       val allLocationsList : MutableList<LatLng> = mutableListOf()
+       positionAndTimesStateList.value.let{
            it.forEach{
                allLocationsList.add(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
            }
