@@ -59,12 +59,18 @@ fun LocationScreen(locationState: State<Location?>,
            .fillMaxSize()
    ) {
        Text(text = stringResource(id = R.string.latandlong))
-       val lat = locationState.value?.latitude ?: "5"
        Text(text = "${locationState.value?.latitude ?: ""},${locationState.value?.longitude ?: ""}")
 
        val locationPosition = locationState.value?.let {
            LatLng(it.latitude, it.longitude)
        } ?: LatLng(0.0,0.0)
+
+       val locationList: MutableList<LatLng> = mutableListOf()
+       for(i in 1..10){
+           val x =LatLng (37.4 + i, 122.08 + i)
+           locationList.add(x)
+       }
+
 
        var trackShit = remember { mutableStateOf(false)}
        GoogleMap(
@@ -72,15 +78,17 @@ fun LocationScreen(locationState: State<Location?>,
            cameraPositionState = cameraPositionState,
            uiSettings = MapUiSettings(zoomControlsEnabled = false)
        ) {
+           locationList.forEach{
            if (locationState.value != null) {
                Marker(
-                   position = locationPosition,
-                   title ="${locationState.value?.latitude ?: ""}, ${locationState.value?.longitude ?: ""}",
+                   position = it,
+                   title = "${locationState.value?.latitude ?: ""}, ${locationState.value?.longitude ?: ""}",
                    onClick = {
                        trackShit.value = true
                        false
                    }
                )
+           }
            }
        }
 

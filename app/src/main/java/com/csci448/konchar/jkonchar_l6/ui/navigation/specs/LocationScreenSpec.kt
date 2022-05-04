@@ -1,7 +1,10 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
+import android.location.Location
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
@@ -27,6 +30,7 @@ object LocationScreenSpec: I_ScreenSpec {
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(LatLng(0.0,0.0), 0f)
         }
+        val locationStateList: State<List<MutableLiveData<Location>>>
        LocationScreen(
            locationState = viewModel.currentLocationLiveData.observeAsState(),
            addressState = viewModel.currentAddressLiveData.observeAsState(),
