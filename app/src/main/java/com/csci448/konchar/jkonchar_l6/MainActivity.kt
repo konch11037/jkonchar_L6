@@ -4,21 +4,31 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.csci448.konchar.jkonchar_l6.ui.navigation.GeoLocatrNavHost
+import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.AboutScreenSpec
+import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.HistoryScreenSpec
+import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.LocationScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
+import com.csci448.konchar.jkonchar_l6.uitl.DataStoreManager
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModelFactory
@@ -41,8 +51,8 @@ class MainActivity : ComponentActivity() {
         locationUtility = LocationUtility(this, viewModel)
         setContent {
             MainActivityContent(viewModel = viewModel)
-            }
         }
+    }
 
     @Composable
     private fun MainActivityContent(viewModel: I_GeoLocatrViewModel) {
@@ -87,7 +97,6 @@ class MainActivity : ComponentActivity() {
                 }
 
 
-
                 val scaffoldState = rememberScaffoldState()
                 val navController = rememberNavController()
                 Scaffold(floatingActionButton = {
@@ -110,9 +119,79 @@ class MainActivity : ComponentActivity() {
                         }
 
                     },
+                    drawerContent = {
+                        Column(Modifier.fillMaxSize()) {
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .clickable { navController.navigate(LocationScreenSpec.navigateTo()) },
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_map_24),
+                                    contentDescription = null
+                                )
+                                Spacer(Modifier.width(16.dp))
+                                Text("Map")
+                            }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+
+                                    .clickable { navController.navigate(HistoryScreenSpec.navigateTo()) },
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_history_24),
+                                    contentDescription = null
+                                )
+                                Spacer(Modifier.width(16.dp))
+                                Text("History")
+                            }
+//                            Row(
+//                                horizontalArrangement = Arrangement.SpaceBetween,
+//                                modifier = Modifier
+//                                    .fillMaxWidth()
+//                                    .clickable { navController.navigate(SettingsScreenSpec.navigateTo()) },
+//                            ) {
+//                                Icon(
+//                                    imageVector = Icons.Default.Settings,
+//                                    contentDescription = null
+//                                )
+//                            Spacer(Modifier.width(16.dp))
+//                                Text("Settings")
+//                            }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { navController.navigate(AboutScreenSpec.navigateTo()) },
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_info_24),
+                                    contentDescription = null
+                                )
+                                Spacer(Modifier.width(16.dp))
+                                Text("About")
+                            }
+                        }
+
+                    },
 
                     content = {
-                        GeoLocatrNavHost(navController = navController, viewModel = viewModel )
+                        val dataStoreManager = DataStoreManager(this)
+                        val lifeCycleOwner = LocalLifecycleOwner.current
+                        val dataFlowLifeCycleAware =
+                            remember(dataStoreManager.doNotificationFlow, lifeCycleOwner) {
+                            dataStoreManager.doNotificationFlow.flowWithLifecycle(
+                                lifeCycleOwner.lifecycle,
+                                Lifecycle.State.STARTED
+                                )
+                            }
+                            val locationSaveState: State<Boolean> =
+                                    dataFlowLifeCycleAware.collectAsState(
+                                        initial = false
+                                    )
+                            GeoLocatrNavHost(navController = navController, viewModel = viewModel)
 //                        LocationScreen(
 //                            locationState = locationState,
 //                            addressState = addressState,
