@@ -30,8 +30,8 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
 
 
     fun addPositionAndTime(paT: PositionAndTime) {
-        makeApiWeatherRequest(paT)
         executor.execute {
+            makeApiWeatherRequest(paT)
             positionAndTimeDao.addPositionAndTime(paT = paT)
         }
     }

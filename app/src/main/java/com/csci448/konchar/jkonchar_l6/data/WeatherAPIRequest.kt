@@ -24,9 +24,9 @@ fun makeApiWeatherRequest(pat: PositionAndTime) {
         Log.d(LOG_TAG, "Got result $apiData")
         Log.d(LOG_TAG, "Length ${apiData.length}")
     }
-    parseRecipeJSON(apiData, pat)
+    parseWeatherJSON(apiData, pat)
 }
-fun parseRecipeJSON(
+fun parseWeatherJSON(
     apiData: String?,
     pat: PositionAndTime,
 ) {
