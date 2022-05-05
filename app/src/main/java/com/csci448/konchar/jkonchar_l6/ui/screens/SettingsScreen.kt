@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -22,10 +23,13 @@ import com.google.android.material.slider.Slider
 
 @Composable
 fun SettingsScreen(viewModel: I_GeoLocatrViewModel) {
-    Column(Modifier.fillMaxSize()){
+    Column(Modifier.fillMaxSize()) {
         Text(color = Color.Magenta, text = "Location Database")
-        Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween){
-            Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24) , contentDescription = null)
+        Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_save_24),
+                contentDescription = null
+            )
             Text("Save Locations to Database")
             var checkedState = viewModel.getUserSettings().observeAsState(UserSettings())
 
@@ -33,16 +37,20 @@ fun SettingsScreen(viewModel: I_GeoLocatrViewModel) {
             Spacer(Modifier.width(20.dp))
             Switch(checked = checkedState.value.saveLocation, onCheckedChange = {
                 checkedState.value.saveLocation = it
-            if(checkedState.value.saveLocation) viewModel.setLocationSaving_ON_UserSettings() else viewModel.setLocationSaving_OFF_UserSettings() } )
+                if (checkedState.value.saveLocation) viewModel.setLocationSaving_ON_UserSettings() else viewModel.setLocationSaving_OFF_UserSettings()
+            })
         }
         Row(
             Modifier
                 .fillMaxWidth()
-                .clickable { viewModel.deleteAll() }, Arrangement.SpaceBetween){
+                .clickable { viewModel.deleteAll() },
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Icon(imageVector = Icons.Default.Delete, contentDescription = null)
             Text("Delete Database")
         }
-        
+
     }
 
 }
