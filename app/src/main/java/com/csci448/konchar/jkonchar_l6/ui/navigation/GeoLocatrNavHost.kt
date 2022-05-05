@@ -1,5 +1,6 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -15,7 +16,8 @@ fun GeoLocatrNavHost(
     navController: NavController,
     viewModel: I_GeoLocatrViewModel,
     snackbarHostState: SnackbarHostState,
-    cameraPositionState: CameraPositionState
+    cameraPositionState: CameraPositionState,
+    scaffoldState: ScaffoldState
 ){
     NavHost(
         navController = navController as NavHostController,
@@ -29,7 +31,8 @@ fun GeoLocatrNavHost(
                     navController,
                     backStackEntry,
                     snackbarHostState,
-                    cameraPositionState
+                    cameraPositionState,
+                    scaffoldState
                     )
             }
         }

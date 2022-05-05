@@ -36,7 +36,8 @@ sealed interface I_ScreenSpec {
         navController: NavHostController,
         backStackEntry: NavBackStackEntry,
         snackbarHostState: SnackbarHostState,
-        cameraPositionState: CameraPositionState
+        cameraPositionState: CameraPositionState,
+        scaffoldState: ScaffoldState
     )
     @Composable fun TopAppBarActions(navController: NavHostController)
 

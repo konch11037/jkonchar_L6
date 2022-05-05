@@ -1,6 +1,7 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
 import android.annotation.SuppressLint
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -12,10 +13,8 @@ import com.csci448.konchar.jkonchar_l6.LocationScreen
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.data.UserSettings
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
-import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.*
 
 object LocationScreenSpec: I_ScreenSpec {
@@ -32,7 +31,8 @@ object LocationScreenSpec: I_ScreenSpec {
         navController: NavHostController,
         backStackEntry: NavBackStackEntry,
         snackbarHostState: SnackbarHostState,
-        cameraPositionState: CameraPositionState
+        cameraPositionState: CameraPositionState,
+        scaffoldState: ScaffoldState
     ) {
 
         val locationState = viewModel.currentLocationLiveData.observeAsState()
@@ -63,7 +63,8 @@ object LocationScreenSpec: I_ScreenSpec {
            },
            cameraPositionState = cameraPositionState,
            positionAndTimesStateList = positionAndTimesStateList,
-           snackbarHostState = snackbarHostState
+           snackbarHostState = snackbarHostState,
+           scaffoldState
        ) 
     }
 

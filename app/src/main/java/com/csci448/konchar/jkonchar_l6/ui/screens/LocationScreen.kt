@@ -30,7 +30,8 @@ fun LocationScreen(
     onGetLocation: () -> Unit,
     cameraPositionState: CameraPositionState,
     positionAndTimesStateList: State<List<PositionAndTime>>,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    scaffoldState: ScaffoldState
 
 ) {
    Column(
@@ -67,7 +68,7 @@ fun LocationScreen(
                    onClick = {
                        onGetLocation()
                        coroutine.launch {
-                           snackbarHostState.showSnackbar("test")
+                           scaffoldState.snackbarHostState.showSnackbar("test")
                        }
                        //trackShit.value = true
                        false

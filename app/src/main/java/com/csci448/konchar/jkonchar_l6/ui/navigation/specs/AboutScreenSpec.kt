@@ -1,5 +1,6 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
@@ -21,7 +22,8 @@ object AboutScreenSpec: I_ScreenSpec {
     navController: NavHostController,
     backStackEntry: NavBackStackEntry,
     snackBarHostState: SnackbarHostState,
-    cameraPositionState: CameraPositionState
+    cameraPositionState: CameraPositionState,
+    scaffoldState: ScaffoldState
 ) {
        AboutScreen()
     }
