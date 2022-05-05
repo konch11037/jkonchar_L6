@@ -1,12 +1,15 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
@@ -17,6 +20,8 @@ import com.csci448.konchar.jkonchar_l6.data.makeApiWeatherRequest
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
 import kotlinx.coroutines.*
 import java.util.*
 import java.util.concurrent.Executors
@@ -27,7 +32,6 @@ object LocationScreenSpec: I_ScreenSpec {
         get() ="LocationScreen"
     override val arguments: List<NamedNavArgument>
         get() = TODO("Not yet implemented")
-
     @SuppressLint("UnrememberedMutableState")
     @Composable
     override fun Content(
@@ -48,8 +52,8 @@ object LocationScreenSpec: I_ScreenSpec {
         val pat = PositionAndTime(
             longitude = locationPosition.longitude.toFloat(),
             latitude = locationPosition.latitude.toFloat(),
-            "",
-            "",
+            "loading",
+            "loading",
             Date(Date().date + Date().time)
             )
 
@@ -58,6 +62,7 @@ object LocationScreenSpec: I_ScreenSpec {
         val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(
             mutableStateListOf())
 
+        val context = LocalContext.current
         val executor = Executors.newSingleThreadExecutor()
         val coroutineScope = rememberCoroutineScope()
         LocationScreen(
@@ -66,18 +71,24 @@ object LocationScreenSpec: I_ScreenSpec {
            onGetLocation = {
 
                coroutineScope.launch {
-                   makeApiWeatherRequest(pat)
                    withContext(Dispatchers.Main) {
                        viewModel.tempy = pat
                    }
                }
-               if (save) viewModel.addPositionAndTime(pat)
            },
+            onMapClick = { positionAndTime: PositionAndTime ->
+                Toast.makeText(context, "You were here: " + positionAndTime.date + "Temp: "
+                        + positionAndTime.temperature + " (" + positionAndTime.weather +")", Toast.LENGTH_LONG).show()
+                if (save) viewModel.addPositionAndTime(positionAndTime)
+                save
+            },
            cameraPositionState = cameraPositionState,
            positionAndTimesStateList = positionAndTimesStateList,
            snackbarHostState = snackbarHostState,
            scaffoldState
-       ) 
+       )
+
+
     }
 
     @Composable
@@ -88,4 +99,5 @@ object LocationScreenSpec: I_ScreenSpec {
     override fun navigateTo(vararg args: String?): String {
        return route
     }
+
 }

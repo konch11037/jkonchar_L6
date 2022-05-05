@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WeathrTrackr</string>
-    <string name="latandlong">Latitude , Longitude</string>
+    <string name="latandlong">Your Latitude , Longitude</string>
     <string name="address">Address</string>
     <string name="location_reason_message">We must access your location to plot where you are</string>
 
