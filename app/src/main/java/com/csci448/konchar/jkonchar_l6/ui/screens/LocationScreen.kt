@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.database.PositionAndTimeRepository
+import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -36,6 +38,7 @@ fun LocationScreen(
     positionAndTimesStateList: State<List<PositionAndTime>>,
     snackbarHostState: SnackbarHostState,
     scaffoldState: ScaffoldState,
+    viewModel: I_GeoLocatrViewModel,
 ) {
    Column(
        horizontalAlignment = Alignment.CenterHorizontally,
@@ -70,28 +73,45 @@ fun LocationScreen(
                }
            }
        ) {
-           allLocationsList.forEach{
+
+           allLocationsList.forEach{paT->
                Marker(
-                   position = it,
-                   title = "${it.latitude ?: ""}, ${it.longitude ?: ""}",
+                   position = paT,
+                   title = "${paT.latitude ?: ""}, ${paT.longitude ?: ""}",
                    onClick = {
                        onGetLocation()
                        coroutine.launch {
-                           snackbarHostState.showSnackbar("fucning")
+                           val snackbarResult = snackbarHostState.showSnackbar("")
+                           when (snackbarResult) {
+                               SnackbarResult.ActionPerformed -> {
+                                    allLocationsList.remove(paT)
+                               }
+                               SnackbarResult.Dismissed -> {
+                                   /* dismissed, no action needed */
+                               }
+                           }
                        }
                        true
                    }
                )
            }
 
-           positionAndTimesStateList.value.forEach{
+           positionAndTimesStateList.value.forEach{paT->
                Marker(
-                   position = LatLng(it.latitude.toDouble(), it.longitude.toDouble()),
-                   title = "${it.latitude ?: ""}, ${it.longitude ?: ""}",
+                   position = LatLng(paT.latitude.toDouble(), paT.longitude.toDouble()),
+                   title = "${paT.latitude ?: ""}, ${paT.longitude ?: ""}",
                    onClick = {
                        onGetLocation()
                        coroutine.launch {
-                           snackbarHostState.showSnackbar("fucning")
+                           val snackbarResult = snackbarHostState.showSnackbar("")
+                           when (snackbarResult) {
+                               SnackbarResult.ActionPerformed -> {
+                                   viewModel.testDelete(paT)
+                               }
+                               SnackbarResult.Dismissed -> {
+                                   /* dismissed, no action needed */
+                               }
+                           }
 
                        }
                        true

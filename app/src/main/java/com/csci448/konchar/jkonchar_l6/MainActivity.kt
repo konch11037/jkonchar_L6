@@ -98,8 +98,8 @@ class MainActivity : ComponentActivity() {
                             .build()
                         // create a camera to smoothly move the map view
                         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-                        Toast.makeText(this@MainActivity, "You were here: " + viewModel.tempy.date + "Temp: "
-                                + viewModel.tempy.temperature + " (" + viewModel.tempy.weather +")", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@MainActivity, "You were here: " + viewModel.tempy.date + "Temp: "
+//                                + viewModel.tempy.temperature + " (" + viewModel.tempy.weather +")", Toast.LENGTH_SHORT).show()
                         // move the camera
                         cameraPositionState.animate(cameraUpdate)
                     }

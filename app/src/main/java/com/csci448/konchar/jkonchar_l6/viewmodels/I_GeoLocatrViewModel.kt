@@ -24,4 +24,5 @@ abstract class I_GeoLocatrViewModel: ViewModel() {
     abstract fun getUserSettings(): LiveData<UserSettings>
     abstract fun setLocationSaving_ON_UserSettings()
     abstract var tempy: PositionAndTime
+    abstract fun testDelete(paT: PositionAndTime)
 }

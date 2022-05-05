@@ -44,6 +44,8 @@ class GeoLocatrViewModel(
 
     override fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)
 
+    override fun testDelete(paT: PositionAndTime) = positionAndTimeRepository.testDelete(paT)
+
     override fun addPositionAndTime(positionAndTime: PositionAndTime) {
        positionAndTimeRepository.addPositionAndTime(positionAndTime)
     }

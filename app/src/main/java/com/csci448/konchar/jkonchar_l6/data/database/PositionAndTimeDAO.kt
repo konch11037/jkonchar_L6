@@ -2,6 +2,7 @@ package com.csci448.konchar.jkonchar_l6.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
@@ -13,6 +14,9 @@ interface PositionAndTimeDAO {
     @Insert
     fun addPositionAndTime(paT: PositionAndTime)
 
+    @Delete
+    fun testDelete(paT:PositionAndTime)
+
     @Query("SELECT * FROM PositionAndTime")
     fun getPositionAndTimes(): LiveData<List<PositionAndTime>>
 
@@ -22,7 +26,7 @@ interface PositionAndTimeDAO {
     @Query("DELETE FROM PositionAndTime")
     fun deleteAll()
 
-    @Query("DELETE FROM PositionAndTime where id = :id")
+    @Query("DELETE FROM PositionAndTime WHERE id=(:id)")
     fun deletePositionAndTime(id: UUID)
 
     @Insert

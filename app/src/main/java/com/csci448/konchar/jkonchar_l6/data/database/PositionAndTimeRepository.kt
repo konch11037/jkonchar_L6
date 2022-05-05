@@ -45,6 +45,10 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
             positionAndTimeDao.deletePositionAndTime(id)
         }
 
+    fun testDelete(paT: PositionAndTime){
+        positionAndTimeDao.testDelete(paT)
+    }
+
     fun deletePositionAndTimes() {
         executor.execute {
             positionAndTimeDao.deleteAll()
