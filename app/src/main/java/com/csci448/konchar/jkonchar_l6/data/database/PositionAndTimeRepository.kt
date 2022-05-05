@@ -52,8 +52,7 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
     }
 
     fun getUserSettings(): LiveData<UserSettings> {
-        val saveLocationChoice = positionAndTimeDao.getUserSettings()
-        if (saveLocationChoice.value == null) {
+        if (positionAndTimeDao.checkIfSettingsExist() == 0) {
             val userSettings = UserSettings()
             positionAndTimeDao.addUserSettings(userSettings)
             return positionAndTimeDao.getUserSettings()
