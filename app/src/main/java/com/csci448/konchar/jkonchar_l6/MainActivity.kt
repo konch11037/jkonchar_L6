@@ -27,6 +27,7 @@ import com.csci448.konchar.jkonchar_l6.ui.navigation.GeoLocatrNavHost
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.AboutScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.HistoryScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.LocationScreenSpec
+import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.SettingsScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
 import com.csci448.konchar.jkonchar_l6.uitl.DataStoreManager
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
@@ -149,19 +150,19 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.width(16.dp))
                                 Text("History")
                             }
-//                            Row(
-//                                horizontalArrangement = Arrangement.SpaceBetween,
-//                                modifier = Modifier
-//                                    .fillMaxWidth()
-//                                    .clickable { navController.navigate(SettingsScreenSpec.navigateTo()) },
-//                            ) {
-//                                Icon(
-//                                    imageVector = Icons.Default.Settings,
-//                                    contentDescription = null
-//                                )
-//                            Spacer(Modifier.width(16.dp))
-//                                Text("Settings")
-//                            }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { navController.navigate(SettingsScreenSpec.navigateTo()) },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = null
+                                )
+                            Spacer(Modifier.width(16.dp))
+                                Text("Settings")
+                            }
                             Row(
                                 horizontalArrangement = Arrangement.Start,
                                 modifier = Modifier

@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName = "UserSettings")
 class UserSettings (
-    val saveLocation: Boolean = false,
+    val saveLocation: Boolean = true,
     @PrimaryKey
     val userID : UUID = UUID.randomUUID()
     )

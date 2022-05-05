@@ -50,15 +50,15 @@ class GeoLocatrViewModel(
 
     override fun getPositionAndTime(id: UUID): LiveData<PositionAndTime> = positionAndTimeRepository.getPositionAndTime(id)
 
-    fun getUserSettings(): LiveData<UserSettings> {
+    override fun getUserSettings(): LiveData<UserSettings> {
         return positionAndTimeRepository.getUserSettings()
     }
 
-    fun setLocationSaving_OFF_UserSettings() {
+    override fun setLocationSaving_OFF_UserSettings() {
         positionAndTimeRepository.setLocationSaving_OFF_UserSettings()
     }
 
-    fun setLocationSaving_ON_UserSettings() {
+    override fun setLocationSaving_ON_UserSettings() {
         positionAndTimeRepository.setLocationSaving_ON_UserSettings()
     }
 }

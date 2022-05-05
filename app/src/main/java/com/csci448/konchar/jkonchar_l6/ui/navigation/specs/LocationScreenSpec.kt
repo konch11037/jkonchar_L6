@@ -9,6 +9,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.LocationScreen
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.UserSettings
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -46,8 +47,8 @@ object LocationScreenSpec: I_ScreenSpec {
             Date(Date().date + Date().time)
             )
 
-
-        viewModel.addPositionAndTime(pat)
+        val save = viewModel.getUserSettings().observeAsState(UserSettings()).value.saveLocation
+        if(save) viewModel.addPositionAndTime(pat)
 
         val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(
             mutableStateListOf())
@@ -57,7 +58,7 @@ object LocationScreenSpec: I_ScreenSpec {
            addressState = viewModel.currentAddressLiveData.observeAsState(),
            onGetLocation = {},
            cameraPositionState = cameraPositionState,
-           //positionAndTimesStateList = positionAndTimesStateList
+           positionAndTimesStateList = positionAndTimesStateList
        ) 
     }
 
