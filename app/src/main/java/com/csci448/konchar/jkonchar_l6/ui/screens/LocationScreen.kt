@@ -73,10 +73,10 @@ fun LocationScreen(
            }
        }
 
-//       if (trackShit.value) {
-//            SnackbarDemo(trackShit = trackShit)
-//
-//       }
+       if (trackShit.value) {
+            SnackbarDemo(trackShit = trackShit)
+
+       }
    }
 }
 
