@@ -57,7 +57,7 @@ object LocationScreenSpec: I_ScreenSpec {
            addressState = viewModel.currentAddressLiveData.observeAsState(),
            onGetLocation = {},
            cameraPositionState = cameraPositionState,
-           positionAndTimesStateList = positionAndTimesStateList
+           //positionAndTimesStateList = positionAndTimesStateList
        ) 
     }
 

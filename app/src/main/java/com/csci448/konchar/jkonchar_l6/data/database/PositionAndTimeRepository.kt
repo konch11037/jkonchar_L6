@@ -3,6 +3,7 @@ package com.csci448.konchar.jkonchar_l6.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.UserSettings
 import com.csci448.konchar.jkonchar_l6.data.makeApiWeatherRequest
 import java.util.*
 import java.util.concurrent.Executors
@@ -48,5 +49,15 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
         executor.execute {
             positionAndTimeDao.deleteAll()
         }
+    }
+
+    fun getUserSettings(): LiveData<UserSettings> {
+        val saveLocationChoice = positionAndTimeDao.getUserSettings()
+        if (saveLocationChoice.value == null) {
+            val userSettings = UserSettings()
+            positionAndTimeDao.addUserSettings(userSettings)
+            return positionAndTimeDao.getUserSettings()
+        }
+        return positionAndTimeDao.getUserSettings()
     }
 }

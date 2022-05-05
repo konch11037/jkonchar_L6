@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.UserSettings
 import com.csci448.konchar.jkonchar_l6.data.database.PositionAndTimeRepository
 import com.csci448.konchar.jkonchar_l6.uitl.WeatherWorker
 import com.google.android.gms.maps.model.CameraPosition
@@ -49,6 +50,8 @@ class GeoLocatrViewModel(
 
     override fun getPositionAndTime(id: UUID): LiveData<PositionAndTime> = positionAndTimeRepository.getPositionAndTime(id)
 
-
+    fun getUserSettings(): LiveData<UserSettings> {
+        return positionAndTimeRepository.getUserSettings()
+    }
 
 }

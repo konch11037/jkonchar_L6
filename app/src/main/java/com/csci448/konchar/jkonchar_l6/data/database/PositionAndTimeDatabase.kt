@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
+import com.csci448.konchar.jkonchar_l6.data.UserSettings
 
-@Database(entities = [PositionAndTime::class], version = 1)
+@Database(entities = [PositionAndTime::class, UserSettings::class], version = 1)
 @TypeConverters(PositionTimeTypeConverter::class)
 abstract class PositionAndTimeDatabase : RoomDatabase() {
    companion object {
