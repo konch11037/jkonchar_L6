@@ -51,11 +51,15 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
         }
     }
 
-    fun getUserSettings(): LiveData<UserSettings> {
-        if (positionAndTimeDao.checkIfSettingsExist() == 0) {
+    private fun makeUserSettings() {
+        executor.execute{
             val userSettings = UserSettings()
             positionAndTimeDao.addUserSettings(userSettings)
-            return positionAndTimeDao.getUserSettings()
+        }
+    }
+    fun getUserSettings(): LiveData<UserSettings> {
+        if (positionAndTimeDao.checkIfSettingsExist() == 0) {
+            makeUserSettings()
         }
         return positionAndTimeDao.getUserSettings()
     }
