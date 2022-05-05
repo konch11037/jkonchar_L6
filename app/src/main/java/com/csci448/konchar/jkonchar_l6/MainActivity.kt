@@ -123,7 +123,7 @@ class MainActivity : ComponentActivity() {
                     snackbarHost = {
                         SnackbarHost(hostState = snackbarHostState, snackbar =
                         {
-                                SnackbarDemo(viewModel = viewModel,
+                                SnackbarInfo(viewModel = viewModel,
                                     paT = viewModel.tempy)
 
                         }
@@ -281,7 +281,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-fun SnackbarDemo(viewModel: I_GeoLocatrViewModel, paT: PositionAndTime) {
+fun SnackbarInfo(viewModel: I_GeoLocatrViewModel, paT: PositionAndTime) {
     Column {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("E. LLL d, yyyy hh:mm a")
@@ -298,7 +298,8 @@ fun SnackbarDemo(viewModel: I_GeoLocatrViewModel, paT: PositionAndTime) {
             ) {
                 Column() {
                 Text(fontSize = 12.sp, text = stringy)
-                Text(fontSize = 12.sp, text = "Temp: " + paT.temperature + " (" + paT.weather +")")
+                if (paT.temperature != "loading")
+                    Text(fontSize = 12.sp, text = "Temp: " + paT.temperature + " (" + paT.weather +")")
                 }
             }
     }

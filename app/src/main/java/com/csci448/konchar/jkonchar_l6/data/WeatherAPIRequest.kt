@@ -16,7 +16,7 @@ fun makeApiWeatherRequest(pat: PositionAndTime) {
     val key = "97bfa91b4d6625c24437ea05c2af5625"
     val oldkey = "31b74afce7fdf5c3a4d0654e06eb0301"
     val request: Request = Request.Builder()
-        .url("https://api.openweathermap.org/data/2.5/weather?lat=${lat.toInt()}&lon=${long.toInt()}&appid${key}=&units=imperial")
+        .url("https://api.openweathermap.org/data/2.5/weather?lat=${lat.toInt()}&lon=${long.toInt()}&appid=${key}&units=imperial")
         .get()
         .build()
     //same as above, this function executes on IO dispatcher. Won't block UI thread

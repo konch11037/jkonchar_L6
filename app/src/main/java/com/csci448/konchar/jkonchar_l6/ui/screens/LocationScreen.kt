@@ -34,7 +34,6 @@ fun LocationScreen(
     positionAndTimesStateList: State<List<PositionAndTime>>,
     snackbarHostState: SnackbarHostState,
     scaffoldState: ScaffoldState
-
 ) {
    Column(
        horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +54,6 @@ fun LocationScreen(
        if (allLocationsList.isEmpty() && locationState.value != null)
        allLocationsList.add(LatLng(locationState.value!!.latitude, locationState.value!!.longitude))
 
-        val cam = cameraPositionState
        val coroutine = rememberCoroutineScope()
        GoogleMap(
            modifier = Modifier.weight(1f),
