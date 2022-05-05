@@ -52,24 +52,30 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
     }
 
     private fun makeUserSettings() {
-        executor.execute{
+
             val userSettings = UserSettings()
             positionAndTimeDao.addUserSettings(userSettings)
-        }
+
     }
     fun getUserSettings(): LiveData<UserSettings> {
-        if (positionAndTimeDao.checkIfSettingsExist() == 0) {
-            makeUserSettings()
+        executor.execute {
+            if (positionAndTimeDao.checkIfSettingsExist() == 0 ) {
+                makeUserSettings()
+            }
         }
         return positionAndTimeDao.getUserSettings()
     }
 
     fun setLocationSaving_OFF_UserSettings() {
-        positionAndTimeDao.setLocationSaving_OFF_UserSettings()
+        executor.execute {
+            positionAndTimeDao.setLocationSaving_OFF_UserSettings()
+        }
     }
 
     fun setLocationSaving_ON_UserSettings() {
-        positionAndTimeDao.setLocationSaving_ON_UserSettings()
+        executor.execute {
+            positionAndTimeDao.setLocationSaving_ON_UserSettings()
+        }
     }
 
 }

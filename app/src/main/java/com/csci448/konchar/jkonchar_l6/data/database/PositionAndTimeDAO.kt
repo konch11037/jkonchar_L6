@@ -37,6 +37,6 @@ interface PositionAndTimeDAO {
     @Query("SELECT * FROM UserSettings")
     fun getUserSettings(): LiveData<UserSettings>
 
-    @Query("SELECT COUNT(*) FROM usersettings")
+    @Query("SELECT COUNT(*) FROM UserSettings")
     fun checkIfSettingsExist() : Int
 }
