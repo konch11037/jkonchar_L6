@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -38,6 +41,8 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.rememberCameraPositionState
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     lateinit var locationUtility: LocationUtility
@@ -100,6 +105,7 @@ class MainActivity : ComponentActivity() {
                 val scaffoldState = rememberScaffoldState()
                 val navController = rememberNavController()
                 val snackbarHostState = remember {SnackbarHostState()}
+                val coroutineScope = rememberCoroutineScope()
                 Scaffold(floatingActionButton = {
                     FloatingActionButton(
                         onClick = {
@@ -126,11 +132,27 @@ class MainActivity : ComponentActivity() {
                     floatingActionButtonPosition = FabPosition.End,
 
                     topBar = {
-                        TopAppBar() {
+                        // TopAppBar Composable
+                        TopAppBar(
+                            // Provide Title
+                            title = {
+                                Text(text = stringResource(id = R.string.app_name), color = Color.White)
+                            },
+                 
+                            navigationIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Menu",
+                                    modifier = Modifier.clickable(onClick = {
+                                        coroutineScope.launch {
+                                            scaffoldState.drawerState.open()
+                                        }
+                                    }),
+                                    tint = Color.White)
+                            }
 
-                        }
-
-                    },
+                        )
+                            },
                     drawerContent = {
                         Column(Modifier.fillMaxSize()) {
                             Row(
@@ -138,7 +160,10 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
-                                    .clickable { navController.navigate(LocationScreenSpec.navigateTo()) },
+                                    .clickable {
+                                        navController.navigate(LocationScreenSpec.navigateTo())
+                                        coroutineScope.launch { scaffoldState.drawerState.close() }
+                                    },
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_map_24),
@@ -152,7 +177,11 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
-                                    .clickable { navController.navigate(HistoryScreenSpec.navigateTo()) },
+                                    .clickable {
+                                        navController.navigate(HistoryScreenSpec.navigateTo())
+                                        coroutineScope.launch { scaffoldState.drawerState.close() }
+
+                                    },
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_history_24),
@@ -165,7 +194,10 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .clickable { navController.navigate(SettingsScreenSpec.navigateTo()) },
+                                    .clickable {
+                                        navController.navigate(SettingsScreenSpec.navigateTo())
+                                        coroutineScope.launch { scaffoldState.drawerState.close() }
+                                    },
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Settings,
@@ -179,7 +211,10 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
-                                    .clickable { navController.navigate(AboutScreenSpec.navigateTo()) },
+                                    .clickable {
+                                        navController.navigate(AboutScreenSpec.navigateTo())
+                                        coroutineScope.launch { scaffoldState.drawerState.close() }
+                                    },
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_info_24),
