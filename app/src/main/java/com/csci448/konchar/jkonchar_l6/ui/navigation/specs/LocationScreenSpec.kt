@@ -48,8 +48,8 @@ object LocationScreenSpec: I_ScreenSpec {
         val pat = PositionAndTime(
             longitude = locationPosition.longitude.toFloat(),
             latitude = locationPosition.latitude.toFloat(),
-            "loading",
-            "loading",
+            "",
+            "",
             Date(Date().date + Date().time)
             )
 
@@ -59,13 +59,18 @@ object LocationScreenSpec: I_ScreenSpec {
             mutableStateListOf())
 
         val executor = Executors.newSingleThreadExecutor()
+        val coroutineScope = rememberCoroutineScope()
         LocationScreen(
            locationState = locationState,
            addressState = viewModel.currentAddressLiveData.observeAsState(),
            onGetLocation = {
 
+               coroutineScope.launch {
+                   makeApiWeatherRequest(pat)
+                   withContext(Dispatchers.Main) {
                        viewModel.tempy = pat
-
+                   }
+               }
                if (save) viewModel.addPositionAndTime(pat)
            },
            cameraPositionState = cameraPositionState,

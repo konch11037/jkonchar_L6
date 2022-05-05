@@ -30,8 +30,8 @@ fun AboutScreen(){
         Text(text = "About", fontWeight = FontWeight.Bold)
         Text(text = "This app will query the weather at your current location when you press the Floating Action Button" +
                 "(FAB). Your location is plotted on to a map.  Clicking on the marker will display the time that you checked in" +
-                "at that location and the weather at the time of check in.  This information is presented to you in the form of a snackbar" +
-                "at the bottom of the screen. You will also be able to view a history of places you checked in at and you can choose to save" +
+                "at that location and the weather at the time of check in.  This information is presented to you in the form of a snackbar " +
+                "at the bottom of the screen. You will also be able to view a history of places you checked in at and you can choose to save " +
                 "or discard any given location.", textAlign = TextAlign.Center
         )
     }

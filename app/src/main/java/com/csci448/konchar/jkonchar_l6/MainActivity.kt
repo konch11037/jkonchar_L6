@@ -2,6 +2,7 @@ package com.csci448.konchar.jkonchar_l6
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -97,11 +98,12 @@ class MainActivity : ComponentActivity() {
                             .build()
                         // create a camera to smoothly move the map view
                         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                        Toast.makeText(this@MainActivity, "You were here: " + viewModel.tempy.date + "Temp: "
+                                + viewModel.tempy.temperature + " (" + viewModel.tempy.weather +")", Toast.LENGTH_SHORT).show()
                         // move the camera
                         cameraPositionState.animate(cameraUpdate)
                     }
                 }
-
 
                 val scaffoldState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
                 val navController = rememberNavController()
