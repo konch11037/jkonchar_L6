@@ -104,11 +104,11 @@ class MainActivity : ComponentActivity() {
                 }
 
 
-                val scaffoldState = rememberScaffoldState()
+                val scaffoldState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
                 val navController = rememberNavController()
                 val snackbarHostState = remember { SnackbarHostState() }
                 val coroutineScope = rememberCoroutineScope()
-                Scaffold(floatingActionButton = {
+                Scaffold(scaffoldState = scaffoldState, floatingActionButton = {
                     if(checkRoute(navController = navController)) {
                         FloatingActionButton(
                             onClick = {
@@ -152,6 +152,7 @@ class MainActivity : ComponentActivity() {
                                     contentDescription = "Menu",
                                     modifier = Modifier.clickable(onClick = {
                                         coroutineScope.launch {
+                                            
                                             scaffoldState.drawerState.open()
                                         }
                                     }),
@@ -199,9 +200,10 @@ class MainActivity : ComponentActivity() {
                                 Text("History")
                             }
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = Arrangement.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .padding(8.dp)
                                     .clickable {
                                         navController.navigate(SettingsScreenSpec.navigateTo())
                                         coroutineScope.launch { scaffoldState.drawerState.close() }
