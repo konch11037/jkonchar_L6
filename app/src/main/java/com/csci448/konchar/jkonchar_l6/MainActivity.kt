@@ -123,8 +123,9 @@ class MainActivity : ComponentActivity() {
                     snackbarHost = {
                         SnackbarHost(hostState = snackbarHostState, snackbar =
                         {
+                                SnackbarDemo(viewModel = viewModel,
+                                    paT = viewModel.tempy)
 
-                            Text("shit")
                         }
 
 
@@ -295,8 +296,10 @@ fun SnackbarDemo(viewModel: I_GeoLocatrViewModel, paT: PositionAndTime) {
                 //modifier = Modifier.padding(8.dp)
 
             ) {
+                Column() {
                 Text(fontSize = 12.sp, text = stringy)
                 Text(fontSize = 12.sp, text = "Temp: " + paT.temperature + " (" + paT.weather +")")
+                }
             }
     }
 }

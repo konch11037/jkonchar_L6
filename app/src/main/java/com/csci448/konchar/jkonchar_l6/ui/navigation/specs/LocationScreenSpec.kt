@@ -6,16 +6,20 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.LocationScreen
 import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.data.UserSettings
+import com.csci448.konchar.jkonchar_l6.data.makeApiWeatherRequest
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
+import kotlinx.coroutines.*
 import java.util.*
+import java.util.concurrent.Executors
 
 object LocationScreenSpec: I_ScreenSpec {
     
@@ -54,12 +58,21 @@ object LocationScreenSpec: I_ScreenSpec {
         val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(
             mutableStateListOf())
 
-
-       LocationScreen(
+        val executor = Executors.newSingleThreadExecutor()
+        val coroutineScope = rememberCoroutineScope()
+        LocationScreen(
            locationState = locationState,
            addressState = viewModel.currentAddressLiveData.observeAsState(),
            onGetLocation = {
-               if(save) viewModel.addPositionAndTime(pat)
+//               executor.execute {
+//                   makeApiWeatherRequest(pat)
+//               }
+//               coroutineScope.launch {
+//                   withContext(Dispatchers.Main) {
+                       viewModel.tempy = pat
+//                   }
+//               }
+               if (save) viewModel.addPositionAndTime(pat)
            },
            cameraPositionState = cameraPositionState,
            positionAndTimesStateList = positionAndTimesStateList,

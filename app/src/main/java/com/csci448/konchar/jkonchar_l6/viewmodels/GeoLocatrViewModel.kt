@@ -39,6 +39,7 @@ class GeoLocatrViewModel(
             positionAndTimeRepository.getPositionAndTime(id)
         }
 
+    override var tempy : PositionAndTime = PositionAndTime(0.0f,0.0f,"","", Date())
     override fun deleteAll() = positionAndTimeRepository.deletePositionAndTimes()
 
     override fun deletePositionAndTime(id: UUID) = positionAndTimeRepository.deletePositionAndTime(id)

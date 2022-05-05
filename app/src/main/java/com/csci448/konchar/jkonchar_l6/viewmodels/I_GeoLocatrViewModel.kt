@@ -23,4 +23,5 @@ abstract class I_GeoLocatrViewModel: ViewModel() {
     abstract fun setLocationSaving_OFF_UserSettings()
     abstract fun getUserSettings(): LiveData<UserSettings>
     abstract fun setLocationSaving_ON_UserSettings()
+    abstract var tempy: PositionAndTime
 }
