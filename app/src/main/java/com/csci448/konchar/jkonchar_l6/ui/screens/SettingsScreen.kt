@@ -27,11 +27,13 @@ fun SettingsScreen(viewModel: I_GeoLocatrViewModel) {
         Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween){
             Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24) , contentDescription = null)
             Text("Save Locations to Database")
-            var checkedState = viewModel.getUserSettings().observeAsState(UserSettings()).value.saveLocation
+            var checkedState = viewModel.getUserSettings().observeAsState(UserSettings())
+
+
             Spacer(Modifier.width(20.dp))
-            Switch(checked = checkedState, onCheckedChange = {
-                checkedState = it
-            if(checkedState) viewModel.setLocationSaving_ON_UserSettings() else viewModel.setLocationSaving_OFF_UserSettings() } )
+            Switch(checked = checkedState.value.saveLocation, onCheckedChange = {
+                checkedState.value.saveLocation = it
+            if(checkedState.value.saveLocation) viewModel.setLocationSaving_ON_UserSettings() else viewModel.setLocationSaving_OFF_UserSettings() } )
         }
         Row(
             Modifier

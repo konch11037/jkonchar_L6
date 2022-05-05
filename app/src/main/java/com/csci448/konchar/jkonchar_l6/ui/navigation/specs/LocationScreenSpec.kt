@@ -1,6 +1,7 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
 import android.annotation.SuppressLint
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
@@ -28,7 +29,8 @@ object LocationScreenSpec: I_ScreenSpec {
     override fun Content(
         viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
-        backStackEntry: NavBackStackEntry
+        backStackEntry: NavBackStackEntry,
+        snackbarHostState: SnackbarHostState
     ) {
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(LatLng(0.0,0.0), 0f)
@@ -58,7 +60,8 @@ object LocationScreenSpec: I_ScreenSpec {
            addressState = viewModel.currentAddressLiveData.observeAsState(),
            onGetLocation = {},
            cameraPositionState = cameraPositionState,
-           positionAndTimesStateList = positionAndTimesStateList
+           positionAndTimesStateList = positionAndTimesStateList,
+           snackbarHostState = snackbarHostState
        ) 
     }
 

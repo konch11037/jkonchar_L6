@@ -1,5 +1,6 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -17,8 +18,9 @@ object AboutScreenSpec: I_ScreenSpec {
     override fun Content(
     viewModel: I_GeoLocatrViewModel,
     navController: NavHostController,
-    backStackEntry: NavBackStackEntry
-    ) {
+    backStackEntry: NavBackStackEntry,
+    snackBarHostState: SnackbarHostState
+) {
        AboutScreen()
     }
 

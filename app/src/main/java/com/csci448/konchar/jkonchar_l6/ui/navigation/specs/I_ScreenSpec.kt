@@ -1,9 +1,6 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -33,7 +30,12 @@ sealed interface I_ScreenSpec {
     val route: String
     val arguments: List<NamedNavArgument>
 
-    @Composable fun Content(viewModel: I_GeoLocatrViewModel, navController: NavHostController, backStackEntry: NavBackStackEntry)
+    @Composable fun Content(
+        viewModel: I_GeoLocatrViewModel,
+        navController: NavHostController,
+        backStackEntry: NavBackStackEntry,
+        snackbarHostState: SnackbarHostState
+    )
     @Composable fun TopAppBarActions(navController: NavHostController)
 
     @Composable

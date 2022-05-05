@@ -1,6 +1,7 @@
 package com.csci448.konchar.jkonchar_l6.ui.navigation.specs
 
 import android.annotation.SuppressLint
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
@@ -21,7 +22,8 @@ object HistoryScreenSpec: I_ScreenSpec{
     override fun Content(
         viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
-        backStackEntry: NavBackStackEntry
+        backStackEntry: NavBackStackEntry,
+        snackBarHostState: SnackbarHostState
     ) {
        HistoryScreen(positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(mutableStateListOf()))
     }

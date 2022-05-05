@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -100,6 +99,7 @@ class MainActivity : ComponentActivity() {
 
                 val scaffoldState = rememberScaffoldState()
                 val navController = rememberNavController()
+                val snackbarHostState = remember {SnackbarHostState()}
                 Scaffold(floatingActionButton = {
                     FloatingActionButton(
                         onClick = {
@@ -111,6 +111,17 @@ class MainActivity : ComponentActivity() {
                         Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "")
                     }
                 },
+                    snackbarHost = {
+                                   SnackbarHost(hostState = snackbarHostState, snackbar =
+                                   {
+
+
+                                   }
+
+
+                                   )
+
+                    },
 
                     floatingActionButtonPosition = FabPosition.End,
 
@@ -195,7 +206,7 @@ class MainActivity : ComponentActivity() {
                                     dataFlowLifeCycleAware.collectAsState(
                                         initial = false
                                     )
-                            GeoLocatrNavHost(navController = navController, viewModel = viewModel)
+                            GeoLocatrNavHost(navController = navController, viewModel = viewModel, snackbarHostState)
 //                        LocationScreen(
 //                            locationState = locationState,
 //                            addressState = addressState,
