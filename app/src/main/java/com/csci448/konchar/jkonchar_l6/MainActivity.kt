@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                         val bounds = LatLngBounds.Builder()
                             .include(locationPosition)
                             .build()
-                        // create a camera to smoothjly move the map view
+                        // create a camera to smoothly move the map view
                         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
                         // move the camera
                         cameraPositionState.animate(cameraUpdate)
@@ -123,7 +123,8 @@ class MainActivity : ComponentActivity() {
                     snackbarHost = {
                         SnackbarHost(hostState = snackbarHostState, snackbar =
                         {
-                            //SnackbarDemo(viewModel, )
+
+                            Text("shit")
                         }
 
 

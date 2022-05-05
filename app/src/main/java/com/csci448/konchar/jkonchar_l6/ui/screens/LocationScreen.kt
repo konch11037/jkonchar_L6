@@ -1,6 +1,7 @@
 package com.csci448.konchar.jkonchar_l6
 
 import android.location.Location
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -8,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.SemanticsActions.Dismiss
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -68,7 +70,11 @@ fun LocationScreen(
                    onClick = {
                        onGetLocation()
                        coroutine.launch {
-                           scaffoldState.snackbarHostState.showSnackbar("test")
+                           snackbarHostState.showSnackbar("fucning")
+//                           val result = scaffoldState.snackbarHostState.showSnackbar("test")
+//                           when (result) {
+//                               SnackbarResult.Dismissed -> Log.d("Snackbar", "Some string")
+//                           }
                        }
                        //trackShit.value = true
                        false
