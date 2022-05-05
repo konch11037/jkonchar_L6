@@ -122,8 +122,9 @@ class MainActivity : ComponentActivity() {
                     drawerContent = {
                         Column(Modifier.fillMaxSize()) {
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = Arrangement.Start,
                                 modifier = Modifier
+                                    .fillMaxWidth()
                                     .padding(8.dp)
                                     .clickable { navController.navigate(LocationScreenSpec.navigateTo()) },
                             ) {
@@ -135,9 +136,10 @@ class MainActivity : ComponentActivity() {
                                 Text("Map")
                             }
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = Arrangement.Start,
                                 modifier = Modifier
-
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
                                     .clickable { navController.navigate(HistoryScreenSpec.navigateTo()) },
                             ) {
                                 Icon(
@@ -161,9 +163,10 @@ class MainActivity : ComponentActivity() {
 //                                Text("Settings")
 //                            }
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = Arrangement.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .padding(8.dp)
                                     .clickable { navController.navigate(AboutScreenSpec.navigateTo()) },
                             ) {
                                 Icon(
