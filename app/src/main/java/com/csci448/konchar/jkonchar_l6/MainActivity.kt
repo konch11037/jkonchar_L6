@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.csci448.konchar.jkonchar_l6.ui.navigation.GeoLocatrNavHost
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.AboutScreenSpec
@@ -104,28 +106,30 @@ class MainActivity : ComponentActivity() {
 
                 val scaffoldState = rememberScaffoldState()
                 val navController = rememberNavController()
-                val snackbarHostState = remember {SnackbarHostState()}
+                val snackbarHostState = remember { SnackbarHostState() }
                 val coroutineScope = rememberCoroutineScope()
                 Scaffold(floatingActionButton = {
-                    FloatingActionButton(
-                        onClick = {
-                            locationUtility.checkPermissionAndGetLocation(this)
-                        },
+                    if(checkRoute(navController = navController)) {
+                        FloatingActionButton(
+                            onClick = {
+                                locationUtility.checkPermissionAndGetLocation(this)
+                            },
 
-                        elevation = FloatingActionButtonDefaults.elevation(8.dp)
-                    ) {
-                        Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "")
+                            elevation = FloatingActionButtonDefaults.elevation(8.dp)
+                        ) {
+                            Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "")
+                        }
                     }
                 },
                     snackbarHost = {
-                                   SnackbarHost(hostState = snackbarHostState, snackbar =
-                                   {
+                        SnackbarHost(hostState = snackbarHostState, snackbar =
+                        {
 
 
-                                   }
+                        }
 
 
-                                   )
+                        )
 
                     },
 
@@ -136,9 +140,12 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             // Provide Title
                             title = {
-                                Text(text = stringResource(id = R.string.app_name), color = Color.White)
+                                Text(
+                                    text = stringResource(id = R.string.app_name),
+                                    color = Color.White
+                                )
                             },
-                 
+
                             navigationIcon = {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
@@ -148,11 +155,12 @@ class MainActivity : ComponentActivity() {
                                             scaffoldState.drawerState.open()
                                         }
                                     }),
-                                    tint = Color.White)
+                                    tint = Color.White
+                                )
                             }
 
                         )
-                            },
+                    },
                     drawerContent = {
                         Column(Modifier.fillMaxSize()) {
                             Row(
@@ -203,7 +211,7 @@ class MainActivity : ComponentActivity() {
                                     imageVector = Icons.Default.Settings,
                                     contentDescription = null
                                 )
-                            Spacer(Modifier.width(16.dp))
+                                Spacer(Modifier.width(16.dp))
                                 Text("Settings")
                             }
                             Row(
@@ -228,30 +236,11 @@ class MainActivity : ComponentActivity() {
                     },
 
                     content = {
-                        val dataStoreManager = DataStoreManager(this)
-                        val lifeCycleOwner = LocalLifecycleOwner.current
-                        val dataFlowLifeCycleAware =
-                            remember(dataStoreManager.doNotificationFlow, lifeCycleOwner) {
-                            dataStoreManager.doNotificationFlow.flowWithLifecycle(
-                                lifeCycleOwner.lifecycle,
-                                Lifecycle.State.STARTED
-                                )
-                            }
-                            val locationSaveState: State<Boolean> =
-                                    dataFlowLifeCycleAware.collectAsState(
-                                        initial = false
-                                    )
-                            GeoLocatrNavHost(navController = navController, viewModel = viewModel, snackbarHostState)
-//                        LocationScreen(
-//                            locationState = locationState,
-//                            addressState = addressState,
-//                            onGetLocation = {
-//                                locationUtility.checkPermissionAndGetLocation(this)
-//                            },
-//                            cameraPositionState = cameraPositionState,
-//                            positionAndTimesStateList =   viewModel.getPositionAndTimes().observeAsState(
-//                                mutableStateListOf())
-//                        )
+                        GeoLocatrNavHost(
+                            navController = navController,
+                            viewModel = viewModel,
+                            snackbarHostState
+                        )
                     }
                 )
 
@@ -279,4 +268,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @Composable
+    fun checkRoute(navController: NavHostController): Boolean {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val x = navBackStackEntry?.destination?.route
+        return x == "LocationScreen"
+
+    }
 }
