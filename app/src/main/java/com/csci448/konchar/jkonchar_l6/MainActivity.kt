@@ -16,24 +16,23 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.csci448.konchar.jkonchar_l6.ui.navigation.GeoLocatrNavHost
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.AboutScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.HistoryScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.LocationScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.SettingsScreenSpec
 import com.csci448.konchar.jkonchar_l6.ui.theme.Jkonchar_L6Theme
-import com.csci448.konchar.jkonchar_l6.uitl.DataStoreManager
 import com.csci448.konchar.jkonchar_l6.uitl.LocationUtility
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModelFactory
@@ -43,8 +42,9 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.rememberCameraPositionState
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : ComponentActivity() {
     lateinit var locationUtility: LocationUtility
@@ -124,8 +124,7 @@ class MainActivity : ComponentActivity() {
                     snackbarHost = {
                         SnackbarHost(hostState = snackbarHostState, snackbar =
                         {
-
-
+                            //SnackbarDemo(viewModel, )
                         }
 
 
@@ -241,7 +240,8 @@ class MainActivity : ComponentActivity() {
                         GeoLocatrNavHost(
                             navController = navController,
                             viewModel = viewModel,
-                            snackbarHostState
+                            snackbarHostState,
+                            cameraPositionState
                         )
                     }
                 )
@@ -277,4 +277,27 @@ class MainActivity : ComponentActivity() {
         return x == "LocationScreen"
 
     }
+
+    @Composable
+fun SnackbarDemo(viewModel: I_GeoLocatrViewModel, paT: PositionAndTime) {
+    Column {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("E. LLL d, yyyy hh:mm a")
+        val formatted = current.format(formatter)
+        val stringy = "You were here: " + paT.date
+            Snackbar(
+                action = {
+                    Button(onClick = {viewModel.deletePositionAndTime(paT.id)}) {
+                        Text("DELETE")
+                    }
+                },
+                //modifier = Modifier.padding(8.dp)
+
+            ) {
+                Text(fontSize = 12.sp, text = stringy)
+                Text(fontSize = 12.sp, text = "Temp: " + paT.temperature + " (" + paT.weather +")")
+            }
+    }
+}
+
 }

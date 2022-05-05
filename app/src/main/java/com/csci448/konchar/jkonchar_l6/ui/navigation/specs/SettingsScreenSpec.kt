@@ -7,6 +7,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.ui.screens.SettingsScreen
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
+import com.google.maps.android.compose.CameraPositionState
 
 object SettingsScreenSpec: I_ScreenSpec {
     override val route: String
@@ -19,7 +20,8 @@ object SettingsScreenSpec: I_ScreenSpec {
         viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
         backStackEntry: NavBackStackEntry,
-        snackBarHostState: SnackbarHostState
+        snackBarHostState: SnackbarHostState,
+        cameraPositionState: CameraPositionState
     ) {
 
 

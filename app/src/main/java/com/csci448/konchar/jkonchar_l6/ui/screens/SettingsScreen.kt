@@ -25,7 +25,7 @@ import com.google.android.material.slider.Slider
 fun SettingsScreen(viewModel: I_GeoLocatrViewModel) {
     Column(Modifier.fillMaxSize()) {
         Text(color = Color.Magenta, text = "Location Database")
-        Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
+        Row(Modifier.fillMaxWidth().padding(8.dp), Arrangement.SpaceBetween) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_save_24),
                 contentDescription = null
@@ -42,12 +42,13 @@ fun SettingsScreen(viewModel: I_GeoLocatrViewModel) {
         }
         Row(
             Modifier
-                .fillMaxWidth()
+                .fillMaxWidth().padding(8.dp)
                 .clickable { viewModel.deleteAll() },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.Start
         ) {
             Icon(imageVector = Icons.Default.Delete, contentDescription = null)
+            Spacer(Modifier.width(42.dp))
             Text("Delete Database")
         }
 

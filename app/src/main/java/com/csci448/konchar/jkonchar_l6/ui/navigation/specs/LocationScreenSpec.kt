@@ -14,6 +14,7 @@ import com.csci448.konchar.jkonchar_l6.data.UserSettings
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.*
 
@@ -30,11 +31,10 @@ object LocationScreenSpec: I_ScreenSpec {
         viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
         backStackEntry: NavBackStackEntry,
-        snackbarHostState: SnackbarHostState
+        snackbarHostState: SnackbarHostState,
+        cameraPositionState: CameraPositionState
     ) {
-        val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(LatLng(0.0,0.0), 0f)
-        }
+
         val locationState = viewModel.currentLocationLiveData.observeAsState()
 
         val locationPosition = locationState.value?.let {
@@ -44,21 +44,23 @@ object LocationScreenSpec: I_ScreenSpec {
         val pat = PositionAndTime(
             longitude = locationPosition.longitude.toFloat(),
             latitude = locationPosition.latitude.toFloat(),
-            "",  //TODO: FIX
+            "",
             "",
             Date(Date().date + Date().time)
             )
 
         val save = viewModel.getUserSettings().observeAsState(UserSettings()).value.saveLocation
-        if(save) viewModel.addPositionAndTime(pat)
 
         val positionAndTimesStateList = viewModel.getPositionAndTimes().observeAsState(
             mutableStateListOf())
 
+
        LocationScreen(
            locationState = locationState,
            addressState = viewModel.currentAddressLiveData.observeAsState(),
-           onGetLocation = {},
+           onGetLocation = {
+               if(save) viewModel.addPositionAndTime(pat)
+           },
            cameraPositionState = cameraPositionState,
            positionAndTimesStateList = positionAndTimesStateList,
            snackbarHostState = snackbarHostState

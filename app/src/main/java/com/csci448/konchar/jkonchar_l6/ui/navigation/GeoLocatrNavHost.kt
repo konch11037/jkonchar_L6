@@ -8,12 +8,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.csci448.konchar.jkonchar_l6.ui.navigation.specs.I_ScreenSpec
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
+import com.google.maps.android.compose.CameraPositionState
 
 @Composable
 fun GeoLocatrNavHost(
     navController: NavController,
     viewModel: I_GeoLocatrViewModel,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    cameraPositionState: CameraPositionState
 ){
     NavHost(
         navController = navController as NavHostController,
@@ -26,7 +28,9 @@ fun GeoLocatrNavHost(
                     viewModel,
                     navController,
                     backStackEntry,
-                    snackbarHostState)
+                    snackbarHostState,
+                    cameraPositionState
+                    )
             }
         }
     }

@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import com.csci448.konchar.jkonchar_l6.R
 import com.csci448.konchar.jkonchar_l6.viewmodels.GeoLocatrViewModel
 import com.csci448.konchar.jkonchar_l6.viewmodels.I_GeoLocatrViewModel
+import com.google.maps.android.compose.CameraPositionState
 
 
 sealed interface I_ScreenSpec {
@@ -34,7 +35,8 @@ sealed interface I_ScreenSpec {
         viewModel: I_GeoLocatrViewModel,
         navController: NavHostController,
         backStackEntry: NavBackStackEntry,
-        snackbarHostState: SnackbarHostState
+        snackbarHostState: SnackbarHostState,
+        cameraPositionState: CameraPositionState
     )
     @Composable fun TopAppBarActions(navController: NavHostController)
 

@@ -15,6 +15,7 @@ import com.csci448.konchar.jkonchar_l6.data.PositionAndTime
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,24 +49,27 @@ fun LocationScreen(
            }
        }
 
+       if (allLocationsList.isEmpty() && locationState.value != null)
+       allLocationsList.add(LatLng(locationState.value!!.latitude, locationState.value!!.longitude))
 
-       var trackShit = remember { mutableStateOf(false)}
+
+       val coroutine = rememberCoroutineScope()
        GoogleMap(
            modifier = Modifier.weight(1f),
            cameraPositionState = cameraPositionState,
            uiSettings = MapUiSettings(zoomControlsEnabled = false)
        ) {
-           val scope = rememberCoroutineScope()
            allLocationsList.forEach{
            if (locationState.value != null) {
                Marker(
                    position = it,
                    title = "${locationState.value?.latitude ?: ""}, ${locationState.value?.longitude ?: ""}",
                    onClick = {
-                       scope.launch{
-                           snackbarHostState.showSnackbar("TEST")
+                       onGetLocation()
+                       coroutine.launch {
+                           snackbarHostState.showSnackbar("test")
                        }
-                       trackShit.value = true
+                       //trackShit.value = true
                        false
                    }
                )
@@ -73,28 +77,7 @@ fun LocationScreen(
            }
        }
 
-       if (trackShit.value) {
-            SnackbarDemo(trackShit = trackShit)
-
-       }
    }
 }
 
-@Composable
-fun SnackbarDemo(trackShit: MutableState<Boolean>) {
-    Column {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("E. LLL d, yyyy hh:mm a")
-        val formatted = current.format(formatter)
-        val stringy = "You were here: " + formatted
-            Snackbar(
-                action = {
-                    Button(onClick = {trackShit.value = false}) {
-                        Text("DELETE")
-                    }
-                },
-                //modifier = Modifier.padding(8.dp)
 
-            ) { Text(fontSize = 12.sp, text = stringy.toString()) }
-    }
-}
