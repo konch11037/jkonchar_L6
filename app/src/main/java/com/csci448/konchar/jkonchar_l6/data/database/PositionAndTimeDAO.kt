@@ -28,6 +28,11 @@ interface PositionAndTimeDAO {
     @Insert
     fun addUserSettings(userSettings: UserSettings)
 
+    @Query("UPDATE UserSettings SET saveLocation = 0")
+    fun setLocationSaving_OFF_UserSettings()
+
+    @Query("UPDATE UserSettings SET saveLocation = 1")
+    fun setLocationSaving_ON_UserSettings()
 
     @Query("SELECT * FROM UserSettings")
     fun getUserSettings(): LiveData<UserSettings>

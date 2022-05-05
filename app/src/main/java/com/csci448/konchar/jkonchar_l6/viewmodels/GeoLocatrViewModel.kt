@@ -54,4 +54,11 @@ class GeoLocatrViewModel(
         return positionAndTimeRepository.getUserSettings()
     }
 
+    fun setLocationSaving_OFF_UserSettings() {
+        positionAndTimeRepository.setLocationSaving_OFF_UserSettings()
+    }
+
+    fun setLocationSaving_ON_UserSettings() {
+        positionAndTimeRepository.setLocationSaving_ON_UserSettings()
+    }
 }

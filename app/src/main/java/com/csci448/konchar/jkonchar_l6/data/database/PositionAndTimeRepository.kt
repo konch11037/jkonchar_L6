@@ -60,4 +60,13 @@ private constructor(private val positionAndTimeDao: PositionAndTimeDAO){
         }
         return positionAndTimeDao.getUserSettings()
     }
+
+    fun setLocationSaving_OFF_UserSettings() {
+        positionAndTimeDao.setLocationSaving_OFF_UserSettings()
+    }
+
+    fun setLocationSaving_ON_UserSettings() {
+        positionAndTimeDao.setLocationSaving_ON_UserSettings()
+    }
+
 }
